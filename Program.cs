@@ -47,7 +47,18 @@ namespace semLinqTask
                     We.Add(we);
                 }
             }
+            Console.Write("Numbers of distinct cities:");
             Console.WriteLine(We.Select(e => e.City).ToList().Distinct().Count());
+            Console.WriteLine($"Number of date in 2016: {We.Where(e => e.StartTime.Year == 2016).Count()}");
+            Console.WriteLine($"Number of date in 2017: {We.Where(e => e.StartTime.Year == 2017).Count()}");
+            Console.WriteLine($"Number of date in 2018: {We.Where(e => e.StartTime.Year == 2018).Count()}");
+            Console.WriteLine($"Number of date in 2019: {We.Where(e => e.StartTime.Year == 2019).Count()}");
+            Console.WriteLine($"Number of date in 2020: {We.Where(e => e.StartTime.Year == 2020).Count()}");
+
+
+
+
+
 
 
         }
