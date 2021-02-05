@@ -15,18 +15,20 @@ namespace semLinqTask
             //Написать Linq-запросы, используя синтаксис методов расширений
             //и продублировать его, используя синтаксис запросов
             //(возможно с вкраплениями методов расширений, ибо иногда первого может быть недостаточно)
-            
+
             //0. Linq - сколько различных городов есть в датасете.
             //1. Сколько записей за каждый из годов имеется в датасете.
             //Потом будут еще запросы
-            
+
             WeatherEvent we = new WeatherEvent()
             {
                 EventId = "W-1",
                 Type = WeatherEventType.Rain,
                 Severity = Severity.Light,
                 StartTime = DateTime.Now
+
             };
+
         }
     }
 
@@ -46,7 +48,7 @@ namespace semLinqTask
         public string Country { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        
+
     }
 
     //Дополнить перечисления
