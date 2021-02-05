@@ -49,19 +49,10 @@ namespace semLinqTask
             }
             Console.Write("Numbers of distinct cities:");
             Console.WriteLine(We.Select(e => e.City).ToList().Distinct().Count());
-            int[] years = We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray();
-            foreach (var item in years)
+            foreach (var item in We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray())
             {
                 Console.WriteLine($"Number of date in {item}: {We.Where(e => e.StartTime.Year == item).Count()}");
             }
-
-
-
-
-
-
-
-
         }
     }
 
