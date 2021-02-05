@@ -18,5 +18,5 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyTitleAttribute("semLinqTask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
-// Создано классом WriteCodeFragment MSBuild.
+// 由 MSBuild WriteCodeFragment 类生成。
 

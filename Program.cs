@@ -47,11 +47,10 @@ namespace semLinqTask
                     We.Add(we);
                 }
             }
-            Console.Write("Numbers of distinct cities:");
-            Console.WriteLine(We.Select(e => e.City).ToList().Distinct().Count());
+            Console.WriteLine($"Numbers of distinct cities: {We.Select(e => e.City).ToList().Distinct().Count()}");
             foreach (var item in We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray())
             {
-                Console.WriteLine($"Number of date in {item}: {We.Where(e => e.StartTime.Year == item).Count()}");
+                Console.WriteLine($"Number of data in {item}: {We.Where(e => e.StartTime.Year == item).Count()}");
             }
         }
     }
