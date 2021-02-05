@@ -28,19 +28,26 @@ namespace semLinqTask
                 while ((line = sr.ReadLine()) != null)
                 {
                     string[] elements = line.Split(',');
-                    Console.WriteLine(elements[0]);
                     WeatherEvent we = new WeatherEvent()
                     {
                         EventId = elements[0],
                         Type = (WeatherEventType)Enum.Parse(typeof(WeatherEventType), elements[1]),
                         Severity = (Severity)Enum.Parse(typeof(Severity), elements[2]),
-                        StartTime = DateTime.Parse(elements[3])
+                        StartTime = DateTime.Parse(elements[3]),
+                        EndTime = DateTime.Parse(elements[4]),
+                        TimeZone = elements[5],
+                        AirportCode = elements[6],
+                        LocationLat = elements[7],
+                        LocationLng = elements[8],
+                        City = elements[9],
+                        Country = elements[10],
+                        State = elements[11],
+                        ZipCode = elements[12]
                     };
                     We.Add(we);
                 }
             }
-            // Stop in the W-38, why?
-            Console.WriteLine(We[0].StartTime);
+            Console.WriteLine(We.Select(e => e.City).ToList().Distinct().Count());
 
 
         }
@@ -73,6 +80,11 @@ namespace semLinqTask
         Fog,
         Rain,
         Cold,
+        Storm,
+        Precipitation,
+        Hail
+
+
     }
 
     enum Severity
@@ -80,5 +92,9 @@ namespace semLinqTask
         Unknown,
         Light,
         Severe,
+        Moderate,
+        Heavy,
+        UNK,
+        Other
     }
 }
