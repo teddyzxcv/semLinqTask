@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace semLinqTask
 {
@@ -19,15 +20,28 @@ namespace semLinqTask
             //0. Linq - сколько различных городов есть в датасете.
             //1. Сколько записей за каждый из годов имеется в датасете.
             //Потом будут еще запросы
-
-            WeatherEvent we = new WeatherEvent()
+            List<WeatherEvent> We = new List<WeatherEvent>();
+            using (StreamReader sr = new StreamReader("WeatherEvents_Jan2016-Dec2020.csv"))
             {
-                EventId = "W-1",
-                Type = WeatherEventType.Rain,
-                Severity = Severity.Light,
-                StartTime = DateTime.Now
+                string line;
+                sr.ReadLine();
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] elements = line.Split(',');
+                    Console.WriteLine(elements[0]);
+                    WeatherEvent we = new WeatherEvent()
+                    {
+                        EventId = elements[0],
+                        Type = (WeatherEventType)Enum.Parse(typeof(WeatherEventType), elements[1]),
+                        Severity = (Severity)Enum.Parse(typeof(Severity), elements[2]),
+                        StartTime = DateTime.Parse(elements[3])
+                    };
+                    We.Add(we);
+                }
+            }
+            // Stop in the W-38, why?
+            Console.WriteLine(We[0].StartTime);
 
-            };
 
         }
     }

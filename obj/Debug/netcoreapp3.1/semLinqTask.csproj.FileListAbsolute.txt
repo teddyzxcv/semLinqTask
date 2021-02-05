@@ -1,0 +1,13 @@
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\bin\Debug\netcoreapp3.1\semLinqTask.exe
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\bin\Debug\netcoreapp3.1\semLinqTask.deps.json
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\bin\Debug\netcoreapp3.1\semLinqTask.runtimeconfig.json
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\bin\Debug\netcoreapp3.1\semLinqTask.runtimeconfig.dev.json
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\bin\Debug\netcoreapp3.1\semLinqTask.dll
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\bin\Debug\netcoreapp3.1\semLinqTask.pdb
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\obj\Debug\netcoreapp3.1\semLinqTask.csprojAssemblyReference.cache
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\obj\Debug\netcoreapp3.1\semLinqTask.AssemblyInfoInputs.cache
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\obj\Debug\netcoreapp3.1\semLinqTask.AssemblyInfo.cs
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\obj\Debug\netcoreapp3.1\semLinqTask.csproj.CoreCompileInputs.cache
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\obj\Debug\netcoreapp3.1\semLinqTask.dll
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\obj\Debug\netcoreapp3.1\semLinqTask.pdb
+C:\Users\teddyzxcv\Documents\GitHub\semLinqTask\obj\Debug\netcoreapp3.1\semLinqTask.genruntimeconfig.cache

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\teddyzxcv\\Downloads\\30.01.21\\30.01.21\\semLinqTask\\semLinqTask.csproj": {}
+    "C:\\Users\\teddyzxcv\\Documents\\GitHub\\semLinqTask\\semLinqTask.csproj": {}
   },
   "projects": {
-    "C:\\Users\\teddyzxcv\\Downloads\\30.01.21\\30.01.21\\semLinqTask\\semLinqTask.csproj": {
+    "C:\\Users\\teddyzxcv\\Documents\\GitHub\\semLinqTask\\semLinqTask.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\teddyzxcv\\Downloads\\30.01.21\\30.01.21\\semLinqTask\\semLinqTask.csproj",
+        "projectUniqueName": "C:\\Users\\teddyzxcv\\Documents\\GitHub\\semLinqTask\\semLinqTask.csproj",
         "projectName": "semLinqTask",
-        "projectPath": "C:\\Users\\teddyzxcv\\Downloads\\30.01.21\\30.01.21\\semLinqTask\\semLinqTask.csproj",
+        "projectPath": "C:\\Users\\teddyzxcv\\Documents\\GitHub\\semLinqTask\\semLinqTask.csproj",
         "packagesPath": "C:\\Users\\teddyzxcv\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\teddyzxcv\\Downloads\\30.01.21\\30.01.21\\semLinqTask\\obj\\",
+        "outputPath": "C:\\Users\\teddyzxcv\\Documents\\GitHub\\semLinqTask\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
