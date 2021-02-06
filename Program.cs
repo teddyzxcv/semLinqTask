@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-
 namespace semLinqTask
 {
     class Program
@@ -40,7 +39,7 @@ namespace semLinqTask
                         LocationLat = elements[7],
                         LocationLng = elements[8],
                         City = elements[9],
-                        Country = elements[10],
+                        County = elements[10],
                         State = elements[11],
                         ZipCode = elements[12]
                     };
@@ -50,12 +49,30 @@ namespace semLinqTask
             Console.WriteLine($"Numbers of distinct cities: {We.Select(e => e.City).ToList().Distinct().Count()}");
             foreach (var item in We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray())
             {
-                Console.WriteLine($"Number of data in {item}: {We.Where(e => e.StartTime.Year == item).Count()}");
+                Console.WriteLine($"Numbers of data in {item}: {We.Where(e => e.StartTime.Year == item).Count()}");
+            }
+            Console.WriteLine($"Numbers of weather event in 2018: {We.Where(e => e.StartTime.Year == 2018).Count()}");
+            Console.WriteLine($"Numbers of state in dataset: {We.Select(e => e.State).Distinct().Count()}");
+            Console.WriteLine($"Numbers of city in dataset: {We.Select(e => e.City).Distinct().Count()}");
+            var cityweatherlist = We.Where(e => e.StartTime.Year == 2019).Where(e => e.Type == WeatherEventType.Rain)
+                .Select(e => e.City)
+                .GroupBy(e => e)
+                .Where(e => e.Count() > 1)
+                .Select(y => new { Elements = y.Key, Counter = y.Count() }).ToList();
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine($"{i + 1} place : {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Elements}, numbers of rain: {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Counter}");
+            }
+            foreach (var item in We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray())
+            {
+                WeatherEvent maxspancity = We.Where(e => e.StartTime.Year == item).Where(e => e.Type == WeatherEventType.Snow).OrderByDescending(e => e.EndTime - e.StartTime).ToList()[0];
+                Console.Write($"Longest snow in {item} were at {maxspancity.City}");
+                Console.WriteLine($" and was continued {(maxspancity.EndTime - maxspancity.StartTime).ToString("%d")} day(s) {(maxspancity.EndTime - maxspancity.StartTime).ToString(@"hh\:mm\:ss")}");
             }
         }
     }
 
-    //Дополнить модеь, согласно данным из файла
+    //Дополнить модеь, согласно данным из файла 
     class WeatherEvent
     {
         public string EventId { get; set; }
@@ -68,10 +85,9 @@ namespace semLinqTask
         public string LocationLat { get; set; }
         public string LocationLng { get; set; }
         public string City { get; set; }
-        public string Country { get; set; }
+        public string County { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-
     }
 
     //Дополнить перечисления
@@ -85,8 +101,6 @@ namespace semLinqTask
         Storm,
         Precipitation,
         Hail
-
-
     }
 
     enum Severity
