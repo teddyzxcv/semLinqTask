@@ -59,15 +59,21 @@ namespace semLinqTask
                 .GroupBy(e => e)
                 .Where(e => e.Count() > 1)
                 .Select(y => new { Elements = y.Key, Counter = y.Count() }).ToList();
+            Console.WriteLine("Top 3 by rain numbers in different city");
             for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine($"{i + 1} place : {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Elements}, numbers of rain: {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Counter}");
+                Console.Write($"{i + 1} place : {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Elements}");
+                Console.WriteLine($", numbers of rain: {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Counter}");
             }
             foreach (var item in We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray())
             {
-                WeatherEvent maxspancity = We.Where(e => e.StartTime.Year == item).Where(e => e.Type == WeatherEventType.Snow).OrderByDescending(e => e.EndTime - e.StartTime).ToList()[0];
+                WeatherEvent maxspancity = We.Where(e => e.StartTime.Year == item)
+                    .Where(e => e.Type == WeatherEventType.Snow)
+                    .OrderByDescending(e => e.EndTime - e.StartTime)
+                    .ToList()[0];
                 Console.Write($"Longest snow in {item} were at {maxspancity.City}");
-                Console.WriteLine($" and was continued {(maxspancity.EndTime - maxspancity.StartTime).ToString("%d")} day(s) {(maxspancity.EndTime - maxspancity.StartTime).ToString(@"hh\:mm\:ss")}");
+                Console.Write($" and was continued {(maxspancity.EndTime - maxspancity.StartTime).ToString("%d")} day(s) ");
+                Console.WriteLine($"{(maxspancity.EndTime - maxspancity.StartTime).ToString(@"hh\:mm\:ss")}");
             }
         }
     }
