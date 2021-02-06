@@ -6,6 +6,92 @@ namespace semLinqTask
 {
     class Program
     {
+        static string NumbersOfDistinctCities(List<WeatherEvent> we)
+        {
+            return we.Select(e => e.City)
+                        .ToList()
+                        .Distinct()
+                        .Count()
+                        .ToString();
+            // Or
+            /* var result = from e in we
+                          select e.City;
+             return result.Distinct().Count().ToString();*/
+
+        }
+
+        static string EachYearDataCount(List<WeatherEvent> we)
+        {
+            int[] distinctyears = we.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray();
+            // Or
+            /* var result = from e in we
+                          select e.StartTime.Year;
+             int[] distinctyears = result.Distinct().ToArray();*/
+            List<string> lines = new List<string>();
+            string output = String.Empty;
+            foreach (var item in distinctyears)
+            {
+                lines.Add($"Numbers of data in {item}: {we.Where(e => e.StartTime.Year == item).Count()}");
+            }
+            return String.Join('\n', lines);
+
+
+        }
+
+        static string NumbersOfEventsIn(int year, List<WeatherEvent> we)
+        {
+            return we.Where(e => e.StartTime.Year == year).Count().ToString();
+            // Or
+            /*return (from e in we
+                    where e.StartTime.Year == year).Count().ToString();*/
+        }
+        static string NumbersOfDistinctState(List<WeatherEvent> we)
+        {
+            return we.Select(e => e.State)
+                       .ToList()
+                       .Distinct()
+                       .Count()
+                       .ToString();
+            // Or
+            /*return (from e in we
+                    select e.State).Distinct().Count().ToString();*/
+        }
+
+        static Dictionary<string, int> DictionaryOfRainingCitiesIn(int year, List<WeatherEvent> we)
+        {
+            Dictionary<string, int> raininglist = new Dictionary<string, int>();
+            var cityweatherlist = we.Where(e => e.StartTime.Year == year).Where(e => e.Type == WeatherEventType.Rain)
+                            .Select(e => e.City)
+                            .GroupBy(e => e)
+                            .Where(e => e.Count() > 1)
+                            .Select(y => new { Elements = y.Key, Counter = y.Count() }).ToList();
+            // Or
+            /* var cityweatherlist = (from t in (from e in we
+                                               where e.StartTime.Year == year && e.Type == WeatherEventType.Rain
+                                               select e.City).GroupBy(e => e)
+                                    where t.Count() > 1
+                                    select new { Elements = t.Key, Counter = t.Count() }).ToList();*/
+            for (int i = 0; i < cityweatherlist.Count; i++)
+            {
+                raininglist.Add(cityweatherlist.ToList()[i].Elements, cityweatherlist.ToList()[i].Counter);
+            }
+            return raininglist;
+        }
+
+        static string LongestSnowEventIn(int year, List<WeatherEvent> we)
+        {
+            WeatherEvent maxspancity = we.Where(e => e.StartTime.Year == year)
+                    .Where(e => e.Type == WeatherEventType.Snow)
+                    .OrderByDescending(e => e.EndTime - e.StartTime)
+                    .ToList()[0];
+            //Or
+            /*WeatherEvent maxspancity = (from e in we
+                                        where e.StartTime.Year == year
+                                        orderby e.EndTime - e.StartTime descending).ToList();*/
+            string snowtimespanday = (maxspancity.EndTime - maxspancity.StartTime).ToString("%d");
+            string snowtimespanprecise = (maxspancity.EndTime - maxspancity.StartTime).ToString(@"hh\:mm\:ss");
+            return $"{maxspancity.City} and was continued {snowtimespanday} day(s) {snowtimespanprecise}";
+        }
         static void Main(string[] args)
         {
             //Нужно дополнить модель WeatherEvent, создать список этого типа List<>
@@ -46,34 +132,22 @@ namespace semLinqTask
                     We.Add(we);
                 }
             }
-            Console.WriteLine($"Numbers of distinct cities: {We.Select(e => e.City).ToList().Distinct().Count()}");
-            foreach (var item in We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray())
-            {
-                Console.WriteLine($"Numbers of data in {item}: {We.Where(e => e.StartTime.Year == item).Count()}");
-            }
-            Console.WriteLine($"Numbers of weather event in 2018: {We.Where(e => e.StartTime.Year == 2018).Count()}");
-            Console.WriteLine($"Numbers of state in dataset: {We.Select(e => e.State).Distinct().Count()}");
-            Console.WriteLine($"Numbers of city in dataset: {We.Select(e => e.City).Distinct().Count()}");
-            var cityweatherlist = We.Where(e => e.StartTime.Year == 2019).Where(e => e.Type == WeatherEventType.Rain)
-                .Select(e => e.City)
-                .GroupBy(e => e)
-                .Where(e => e.Count() > 1)
-                .Select(y => new { Elements = y.Key, Counter = y.Count() }).ToList();
+            int[] distinctyears = We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray();
+            Console.WriteLine($"Numbers of distinct cities: {NumbersOfDistinctCities(We)}");
+            Console.WriteLine(EachYearDataCount(We));
+            Console.WriteLine($"Numbers of weather event in 2018: {NumbersOfEventsIn(2018, We)} ");
+            Console.WriteLine($"Numbers of state in dataset: {NumbersOfDistinctState(We)}");
+            Console.WriteLine($"Numbers of city in dataset: {NumbersOfDistinctCities(We)}");
             Console.WriteLine("Top 3 by rain numbers in different city");
+            var RainingDic = DictionaryOfRainingCitiesIn(2019, We).OrderByDescending(e => e.Value).ToList();
             for (int i = 0; i < 3; i++)
             {
-                Console.Write($"{i + 1} place : {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Elements}");
-                Console.WriteLine($", numbers of rain: {cityweatherlist.OrderByDescending(e => e.Counter).ToList()[i].Counter}");
+                Console.Write($"{i + 1} place : {RainingDic[i].Key}");
+                Console.WriteLine($", numbers of rain: {RainingDic[i].Value}");
             }
-            foreach (var item in We.Select(e => e.StartTime).Select(e => e.Year).Distinct().ToArray())
+            foreach (var item in distinctyears)
             {
-                WeatherEvent maxspancity = We.Where(e => e.StartTime.Year == item)
-                    .Where(e => e.Type == WeatherEventType.Snow)
-                    .OrderByDescending(e => e.EndTime - e.StartTime)
-                    .ToList()[0];
-                Console.Write($"Longest snow in {item} were at {maxspancity.City}");
-                Console.Write($" and was continued {(maxspancity.EndTime - maxspancity.StartTime).ToString("%d")} day(s) ");
-                Console.WriteLine($"{(maxspancity.EndTime - maxspancity.StartTime).ToString(@"hh\:mm\:ss")}");
+                Console.WriteLine($"Longest snow in {item} was at {LongestSnowEventIn(item, We)}");
             }
         }
     }
@@ -108,7 +182,6 @@ namespace semLinqTask
         Precipitation,
         Hail
     }
-
     enum Severity
     {
         Unknown,
